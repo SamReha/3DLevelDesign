@@ -242,16 +242,14 @@ public class EnemyAI : AbstractBehaviour {
     /// This handles the ability for the player to damage the enemy.
     /// </summary>
     /// <param name="C"></param>
-    void OnCollisionEnter(Collision C)
-    {
-        if (C.gameObject.tag == "Player")
-        {
+    void OnCollisionEnter(Collision C) {
+        if (C.gameObject.tag == "Player") {
             Vector3 direction = target.transform.position - transform.position;
+
             //Checks the direction of the target to the enemy.
-            if (direction.y >= .7f)
-            {
+            if (direction.y >= .7f) {
                 //If the target is moving down.
-                if (C.transform.GetComponent<CharacterMotor>().m_Rigidbody.velocity.y < 0.2) { 
+                if (C.transform.GetComponent<CharacterMotor>().m_Rigidbody.velocity.y >= 0) { 
                     //Damage the enemy.
                     GetComponent<Health>().Damage(1, transform.position);
                     //Bounce the player off the enemy's head.

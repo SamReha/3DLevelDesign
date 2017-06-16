@@ -38,14 +38,14 @@ public class AdvancedJump : MultiJump {
         else
         {
             //When the character is not grounded. If the character is colliding with the wall we do a wall jump, else if we are not colliding with the wall we attempt to do the next part of the multijump.
-            if (m_Motor.collision.wallCollision)
+            /*if (m_Motor.collision.wallCollision)
             {
                 //Wall jumps aren't classed as a multijump to allow the player to combo their jumps together to get higher up. As jumpsremaining isn't altered.
                 WallJump();
                 jumped = true;
             }
             else
-            {
+            {*/
                 if (jumpsRemaining > 0)
                 {
                     m_Rigidbody.velocity = Vector3.zero;
@@ -53,7 +53,7 @@ public class AdvancedJump : MultiJump {
                     BaseJump();
                     jumped = true;
                 }
-            }
+            //}
         }
 
         //If Jumped is set to true by any of the conditions being true to tell the animator to Jump.
@@ -93,18 +93,19 @@ public class AdvancedJump : MultiJump {
     /// <summary>
     /// This method is the logic behind jumping when colliding with a wall calculating the direction and the force.
     /// </summary>
-    void WallJump()
-    {
-        //Retrieve a new jump force and reset the current velocity.
+    void WallJump() {
+        // Retrieve a new jump force and reset the current velocity.
         float newJumpForce = jumpForce;
         m_Rigidbody.velocity = Vector3.zero;
-        //Calculate the jump direction using the walls angle
+
+        // Calculate the jump direction using the walls angle
         Vector3 wallDir = m_Motor.collision.wallHit.normal;
         Vector3 jumpDir = (wallDir + (transform.up / 1.2f)) * newJumpForce / 1.2f;
-        //Apply the value to the ChangeVelocity Method.
+        
+        // Apply the value to the ChangeVelocity Method.
         m_Motor.ChangeVelocity(jumpDir);
-        //override the rotation with the jump direction
+        
+        // Override the rotation with the jump direction
         m_Motor.rotation.overrideVector = jumpDir;
     }
-
 }

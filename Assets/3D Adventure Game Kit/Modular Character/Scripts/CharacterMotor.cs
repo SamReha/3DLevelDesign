@@ -3,20 +3,19 @@ using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 
-
 /// <summary>
 /// This class handles variables based on gravity and force.
 /// </summary>
 [System.Serializable]
 public class GeneralSettings
 {
-    public float gravityForce = 10f;                                            //Strength of gravity.
-    public Vector3 gravityDirection = Vector3.down;                             //Change the direction gravity will drag the player.
-    public bool gravityOverrideOnSurface = true;                                //Changes the gravity to pull towards the surface which the character is stood on, this stops the character controller sliding down smaller slopes.
+    public float gravityForce = 10f;                                            // Strength of gravity.
+    public Vector3 gravityDirection = Vector3.down;                             // Change the direction gravity will drag the player.
+    public bool gravityOverrideOnSurface = true;                                // Changes the gravity to pull towards the surface which the character is stood on, this stops the character controller sliding down smaller slopes.
     public string movingPlatformTag = "Moving Platform";
     public bool onMovingPlatform = false;
-    [HideInInspector] public Vector3 gravityCurrentDirection = Vector3.down;    //Debug variable showing the current direction gravity is affecting.
-    [HideInInspector] public bool forceInfluence = false;                       //This variable is used to stop multiple forces being affecting the character at the same time, fixing certain bugs which can occur.
+    [HideInInspector] public Vector3 gravityCurrentDirection = Vector3.down;    // Debug variable showing the current direction gravity is affecting.
+    [HideInInspector] public bool forceInfluence = false;                       // This variable is used to stop multiple forces being affecting the character at the same time, fixing certain bugs which can occur.
 }
 
 
@@ -26,15 +25,16 @@ public class GeneralSettings
 [System.Serializable]
 public class MovementSettings
 {
-    public float movementSpeed = 8f;                                    //The speed the character moves around.
-    public Vector3 movementDirection = Vector3.zero;                    //This variable is used to input the direction the character will move.
-    [Range(0, 1)] public float groundedVelocityInfluence = 1f;          //Velocity influence changes the strength of the force and how quickly it will affect the current movement.
-    [Range(0, 1)] public float airVelocityInfluence = 0.5f;             //Grounded and Air allows for different movement influence depending on the state of the character.
-    public bool sliding = false;                                        //Variable is used to define if the character is currently sliding.
-    public float slideLimit = 35f;                                      //Angle limit of the ground to decide when the character is considered sliding.
-    public float slideForce = 5000f;                                    //Strength of the slide.
-    public string slideTag = "Slide";                                   //Force sliding state by using this tag on the terrain.
-    public bool velocityMovement = false;                                //This variable is used to allow velocity take full control of the character when nothing is being pressed.
+    public float reactivityFactor = 1.0f;                       // How strongly does this character react to changes in movement?
+    public float movementSpeed = 8f;                            // The speed the character moves around.
+    public Vector3 movementDirection = Vector3.zero;            // This variable is used to input the direction the character will move.
+    [Range(0, 1)] public float groundedVelocityInfluence = 1f;  // Velocity influence changes the strength of the force and how quickly it will affect the current movement.
+    [Range(0, 1)] public float airVelocityInfluence = 0.5f;     // Grounded and Air allows for different movement influence depending on the state of the character.
+    public bool sliding = false;                                // Variable is used to define if the character is currently sliding.
+    public float slideLimit = 35f;                              // Angle limit of the ground to decide when the character is considered sliding.
+    public float slideForce = 5000f;                            // Strength of the slide.
+    public string slideTag = "Slide";                           // Force sliding state by using this tag on the terrain.
+    public bool velocityMovement = false;                       // This variable is used to allow velocity take full control of the character when nothing is being pressed.
 }
 
 
@@ -44,11 +44,11 @@ public class MovementSettings
 [System.Serializable]
 public class RotationSettings
 {
-    public float rotationSpeed = 5f;                    //How fast the character turns to desired location.
-    public Vector3? rotationDirection = null;           //Current desired location.
-    public bool velocityRotation = false;                //Overrides the desired location and forces the character to face based on their current velocity.
-    public Vector3? overrideVector = null;              //This vector is used to force an instant rotation for the character, this value is generally set as null however when a value is inputted the character will turn to the vector.
-    [Range(0, 1)] public float airRotation = .1f;       //How much the character can rotate while in mid air, a value of 1 gives full rotation in mid air while 0 does not allow the character to turn while not grounded.
+    public float rotationSpeed = 5f;                // How fast the character turns to desired location.
+    public Vector3? rotationDirection = null;       // Current desired location.
+    public bool velocityRotation = false;           // Overrides the desired location and forces the character to face based on their current velocity.
+    public Vector3? overrideVector = null;          // This vector is used to force an instant rotation for the character, this value is generally set as null however when a value is inputted the character will turn to the vector.
+    [Range(0, 1)] public float airRotation = .1f;   // How much the character can rotate while in mid air, a value of 1 gives full rotation in mid air while 0 does not allow the character to turn while not grounded.
 }
 
 
@@ -58,16 +58,16 @@ public class RotationSettings
 [System.Serializable]
 public class CollisionSettings
 {
-    public bool debugRay = true;                            //This allows the ray to be visible within the scene view if necessary to see if it hits the grounded correctly.
-    public bool grounded = false;                                   //Variable is used to define if the character is currently grounded.
-    public LayerMask groundLayerMask;                               //List of layers which the character can declare grounded on contact.
-    public float groundRayDistance = 1.5f;                          //Length of grounded ray cast, generally doesn't need to be changed unless scale of characters are much larger or smaller than the example.
-    public RaycastHit groundHit;                                    //Raycast data when the ground is hit accessible for other classes/methods that may need information.
+    public bool debugRay = true;                                    // This allows the ray to be visible within the scene view if necessary to see if it hits the grounded correctly.
+    public bool grounded = false;                                   // Variable is used to define if the character is currently grounded.
+    public LayerMask groundLayerMask;                               // List of layers which the character can declare grounded on contact.
+    public float groundRayDistance = 1.5f;                          // Length of grounded ray cast, generally doesn't need to be changed unless scale of characters are much larger or smaller than the example.
+    public RaycastHit groundHit;                                    // Raycast data when the ground is hit accessible for other classes/methods that may need information.
     public bool wallCollision = false;
-    public LayerMask wallLayerMask;                               //List of layers which the character can declare grounded on contact.
-    public float wallRayDistance = 1.5f;                          //Length of grounded ray cast, generally doesn't need to be changed unless scale of characters are much larger or smaller than the example.
+    public LayerMask wallLayerMask;                                 // List of layers which the character can declare grounded on contact.
+    public float wallRayDistance = 1.5f;                            // Length of grounded ray cast, generally doesn't need to be changed unless scale of characters are much larger or smaller than the example.
     public RaycastHit wallHit;
-    [HideInInspector] public Vector3 groundNormal = Vector3.zero;   //the angle of the face the character is currently stood on, used to influence gravity with gravityOverrideOnSurface and other applications.
+    [HideInInspector] public Vector3 groundNormal = Vector3.zero;   // The angle of the face the character is currently stood on, used to influence gravity with gravityOverrideOnSurface and other applications.
 }
 
 
@@ -82,9 +82,6 @@ public class CharacterMotor : AbstractBehaviour
     public MovementSettings movement = new MovementSettings();
     public RotationSettings rotation = new RotationSettings();
     public CollisionSettings collision = new CollisionSettings();
-
-
-
 
     void Start()
     {
@@ -330,64 +327,45 @@ public class CharacterMotor : AbstractBehaviour
             general.gravityCurrentDirection = general.gravityDirection;
         }
 
-
-
-
         //Apply current gravity direction to the character multiplied by the strength of gravity.
         m_Rigidbody.AddForce(general.gravityCurrentDirection * general.gravityForce);
-
-
     }
-
 
     /// <summary>
     /// This method changes the movement of the character based on the input through movement.movementDirection.
     /// </summary>
-    void Movement()
-    {
-        //Checks if the velocityMovement variable is active and if there is no movement input the character will retain its velocity.
-        if (movement.velocityMovement && movement.movementDirection == Vector3.zero)
-        {
+    void Movement() {
+        // Checks if the velocityMovement variable is active and if there is no movement input the character will retain its velocity.
+        if (movement.velocityMovement && movement.movementDirection == Vector3.zero) {
             return;
         }
 
-
-        //Store the characters current velocity.
+        // Store the characters current velocity.
         Vector3 velocity = m_Rigidbody.velocity;
 
+        float opposition = getInputOpposition(velocity, movement.movementDirection);
+        // Debug.Log(opposition);
 
-        //Calculates a new desired velocity using movementDirection multiplied by movementSpeed removing the previous velocity.
+        // Calculates a new desired velocity using movementDirection multiplied by movementSpeed removing the previous velocity.
         Vector3 newVelocity = ((movement.movementDirection * movement.movementSpeed) - velocity);
 
-
-        //Here we clamp the values maximum velocity change by depending on the velocityInfluence based on the grounded state.
+        // Here we clamp the values maximum velocity change by depending on the velocityInfluence based on the grounded state.
         float velocityMax = collision.grounded ? movement.groundedVelocityInfluence : movement.airVelocityInfluence;
-
 
         newVelocity.x = Mathf.Clamp(newVelocity.x, -velocityMax, velocityMax);
         newVelocity.z = Mathf.Clamp(newVelocity.z, -velocityMax, velocityMax);
         newVelocity.y = 0;
 
+        newVelocity += (newVelocity * opposition * movement.reactivityFactor);
 
-        //Finally we apply the new velocity as a force to the rigidbody.
-        m_Rigidbody.AddForce(newVelocity, ForceMode.VelocityChange);
+        // Finally we apply the new velocity as a force to the rigidbody.
+        m_Rigidbody.AddForce(newVelocity, ForceMode.Impulse);
 
-
-
-
-
-
-        //If the character is sliding, an additional force will be applied down on the character forcing the character to slide.
-        if (movement.sliding)
-        {
+        // If the character is sliding, an additional force will be applied down on the character forcing the character to slide.
+        if (movement.sliding) {
             m_Rigidbody.AddForce(Vector3.down * movement.slideForce * Time.deltaTime);
         }
-
-
     }
-
-
-
 
     /// <summary>
     /// This method handles multiple external forces being applied at the same time which can cause large unintended velocity spikes for the character.
@@ -400,8 +378,6 @@ public class CharacterMotor : AbstractBehaviour
             general.forceInfluence = true;
             Invoke("ResetForceInfluence", 0.1f);
         }
-
-
     }
 
 
@@ -413,5 +389,12 @@ public class CharacterMotor : AbstractBehaviour
         general.forceInfluence = false;
     }
 
+    /// <summary>
+    /// This method compares the current movement direction with an input direction and computes a value (0, 1) that represents how opposed those two vectors are (0 == perfectly aligned, 1 == perfectly opposed)
+    /// </summary>
+    float getInputOpposition(Vector3 movementDirection, Vector2 inputDirection) {
+        float angle = Vector2.Angle(inputDirection, new Vector2(movementDirection.x, movementDirection.y));
 
+        return angle/180;
+    }
 }
